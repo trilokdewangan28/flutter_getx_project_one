@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter_getx_project_one/recent_contest.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,8 +41,7 @@ class _ContentPageState extends State<ContentPage> {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
     int _currentIndex  = 0;
-    return
-      Scaffold(
+    return Scaffold(
         body: Container(
           padding: const EdgeInsets.only( top:70),
           color:Color(0xFFc5e5f3),
@@ -273,7 +272,10 @@ class _ContentPageState extends State<ContentPage> {
                           color: Color(0xFFfdc33c)
                       ),
                       child: GestureDetector(
-
+                        onTap: (){
+                          Get.to(()=>RecentContest());
+                        },
+                        child: Icon(Icons.arrow_forward_ios,color: Colors.white,),
                       ),
                     )
                   ],
@@ -286,7 +288,7 @@ class _ContentPageState extends State<ContentPage> {
                       child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemCount: 4,
+                          itemCount: list.length,
                           itemBuilder: (_, i){
                             return Container(
                               width: width,
@@ -303,7 +305,7 @@ class _ContentPageState extends State<ContentPage> {
                                     CircleAvatar(
                                       radius:40,
                                       backgroundImage: AssetImage(
-                                          "img/background.jpg"
+                                          list[i]['img']
                                       ),
                                     ),
                                     SizedBox(width: 10,),
@@ -312,7 +314,7 @@ class _ContentPageState extends State<ContentPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Status",
+                                          list[i]['status'],
                                           style: TextStyle(
                                               color:Color(0xFFfdebb2),
                                               fontSize: 12,
@@ -323,13 +325,13 @@ class _ContentPageState extends State<ContentPage> {
                                         SizedBox(
                                           width: 100,
                                           child: Text(
-                                            "Text",
-
+                                            list[i]['text'],
                                             style: TextStyle(
                                                 color:Color(0xFF3b3f42),
-                                                fontSize: 18,
-                                                decoration: TextDecoration.none
+                                                fontSize: 16,
+                                                decoration: TextDecoration.none,
                                             ),
+                                            softWrap: true,
                                           ),
                                         )
 
@@ -367,3 +369,4 @@ class _ContentPageState extends State<ContentPage> {
 
   }
 }
+

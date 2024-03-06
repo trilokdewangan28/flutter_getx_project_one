@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_getx_project_one/detail_controller.dart';
 
 import 'content_page.dart';
 import 'my_home_page.dart';
@@ -40,6 +41,7 @@ class _DetailPageState extends State<DetailPage> {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
     int _currentIndex  = 0;
+    final DetailController fav = Get.put(DetailController());
     return
       Scaffold(
           body: Container(
@@ -47,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
             child: Stack(
                 children: [
                   Positioned(top:50, left:10,child: IconButton(
-                    onPressed: ()=>Get.back(), icon: Icon(Icons.arrow_back_ios),
+                    onPressed: ()=>Get.to(()=>ContentPage()), icon: Icon(Icons.home_outlined,color: Colors.white,),
                   )),
                   Positioned(
                     top: 120,
@@ -333,8 +335,9 @@ class _DetailPageState extends State<DetailPage> {
                           borderRadius: BorderRadius.circular(20),
                           color:Color(0xFFfbc33e)
                         ),
-                        child: Icon(Icons.favorite_border,
-                        color:Colors.white
+                        child: IconButton(
+                          onPressed: ()=>fav.favCounter(),
+                            icon:fav.fav.value==0 ? Icon(Icons.favorite_border, color:Colors.white): Icon(Icons.favorite_sharp, color:Colors.red),
                         )
                       ),
                       SizedBox(width: 10,),
